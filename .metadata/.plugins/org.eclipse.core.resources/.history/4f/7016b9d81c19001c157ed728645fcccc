@@ -1,0 +1,25 @@
+package com.demo.services;
+
+import com.demo.dao.EmployeeDAO;
+
+public class EmployeeService {
+	
+	private EmployeeDAO empDao;
+
+	public EmployeeService() {
+		System.out.println("EmployeeService object is created");
+
+	}
+
+	public EmployeeDAO getEmpDao() {
+		return empDao;
+	}
+
+	public void setEmpDao(EmployeeDAO empDao) {
+		this.empDao = empDao;
+		System.out.println("initializing empdao");
+	}
+	
+
+	
+}

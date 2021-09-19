@@ -1,0 +1,234 @@
+09.00 to 10.30  - Session1 
+
+10.45 to 12.00  - Session2 
+
+12.00 to 1.00   - practice /revision 
+
+1.00 to 2.00    - break 
+
+2.00 to 3.30    - Session3 
+
+3.45 to 5.00    - Session4
+
+
+language                    library                         framework 
+
+Java                        standard libraries              spring 
+                            3rd party libraries 
+
+C#                          ....                            .Net
+
+
+python 
+
+javasript 
+
+    |                           |                               |
+programming                 simplifies the              standardize the 
+capabilities                task                        process 
+
+
+
+build tool / dependency management tool / packaging 
+    - maven 
+    - gradle 
+
+deployment 
+    - CI/CD tools 
+    -i.e. jenkins / aws code code build /  Azure DevOps / GCP devops / travis CI 
+
+
+testing 
+    - junit / testng / etc.
+
+linting 
+    - SonarQube 
+
+
+Spring Framework 
+-------------------
+    - IOC
+    - loose coupling 
+    - dependency injection
+    - aspect oriented programming 
+
+
+Spring framework Modules / Products 
+    - Spring Core 
+    - Spring MVC 
+    - Spring REST 
+    - Spring Data
+    - Spring Boot 
+    - Spring Security
+    - Spring Cloud 
+    - ....
+
+
+What is IOC 
+    - principle in software engineering which transfers / delegates the responsibility 
+        of creating objects to a 'Container' 
+    - used to decouple the execution of the task from its implementation 
+    - makes it easy to switch between diff implementation
+    - greater modularity of a program
+
+Container 
+    - responsible to manage the life cycle of objects 
+    - loads the bean definition, and create objects 
+
+Spring Beans / Bean Definition 
+    - the objects which are managed by container are called as 'Spring Beans' 
+    - a bean is an object which is instatiated, assembled, managed by a container 
+
+Emplyee emp = new Employee()
+
+EmployeeDAO empDao = new EmployeeDAO()
+
+
+    class EmployeeService {
+
+        private EmployeeDAO empDAO;
+
+        public EmployeeService(EmployeeDAO dao){
+            this.empDAO = dao;
+        }
+
+        public void setEmployeeDAO(EmployeeDAO dao){
+            this.empDAO = dao;
+        }
+    }
+
+
+/ How to define beans / ways for bean definition 
+    - using xml 
+
+        <bean id="empDAO" class="com.demo.EmployeeDAO">
+        </bean>
+        <bean id="empService" class="com.demo.EmployeeService>
+            <constructor-args name="dao" ref="empDAO" />
+        </bean>
+
+        or 
+
+        <bean id="empService" class="com.demo.EmployeeService>
+            <propeerty name="empDAO" ref="empDAO" />
+        </bean>
+
+    - using java configuration 
+
+        @Configuration 
+        class MyConfiguration{
+
+                @Bean
+                public EmployeeService createEmpService(){
+                    return new EmployeeService(xxx);
+                }
+        }
+        
+
+    - using annotations 
+        @Component
+        class EmployeeService {
+
+                private EmployeeDAO empDAO;
+
+                public EmployeeService(EmployeeDAO dao){
+                    this.empDAO = dao;
+                }
+
+                public void setEmployeeDAO(EmployeeDAO dao){
+                    this.empDAO = dao;
+                }
+            }
+
+
+Container: 
+
+    BeanFactory (interface)
+
+
+    ApplicationContext (interface)
+        - ClassPathXmlApplicationContext
+        - AnnotationConfigApplicationContext
+
+- constructor injection 
+
+- Setter injection 
+
+- Life cycle of beans 
+------------------------
+
+   xml:
+       use 'init-method' property define the init() method 
+       use detroy-method prooperty to define the destroy() method 
+        
+    <bean id="empService" class="com.demo.xxxx.EmpoyeeService" init-method="init" destroy-method="destroy" />
+        
+
+    java:
+         - the class has to implement InitializingBean interface 
+            public void afterPropertiesSet() throws Exception {
+		        // TODO Auto-generated method stub
+                // write some initial code/ connect to db/connect to service / server etc. 
+	        }
+
+    ** the init method is used to write some initial code/ connect to db/connect to service / server etc.
+    ** the destroy method used to write some cleaup code 
+            
+                DisposableBean interface 
+
+                public void destroy() throws Exception {
+		            // TODO Auto-generated method stub
+                    // write code to clean up resources
+	            }
+
+    annotations :
+        @PostContruct
+        @PreDestroy
+
+
+    Bean Scopes
+    ---------------
+            - singleton     - default scope  - only 1 instance 
+            - prototype     - multiple instances will be created as required 
+            - request 
+            - application 
+            - session 
+            ..
+
+            xml : 
+                <bean id="" class="" scope="?" />
+
+            java:
+                @Bean(scope="?")
+
+            annotations
+                @Component()
+                @Scope("?")
+
+
+        
+        JDBC 
+                - load drivers
+                - create connection 
+                - execute the statements 
+
+        JdbcTemplate 
+            JDBC        +   Template 
+
+                - configure the DataSource
+
+                JdbcTemplate    ----------> depends on - ----> javax.sql.DataSource 
+                                                                    |
+                                                                    |
+                                                                 implementation class 
+                                                                    |
+                                                                    |
+                                                                DriverManagerDataSource
+                                                                    driverClassName 
+                                                                    url 
+                                                                    username 
+                                                                    password
+
+        Spring ORM 
+
+        Spring DATA

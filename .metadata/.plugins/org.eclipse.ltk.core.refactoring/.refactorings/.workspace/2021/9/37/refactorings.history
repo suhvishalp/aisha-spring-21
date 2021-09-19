@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;com.demo1&apos;" deleteContents="false" description="Delete resource &apos;com.demo1&apos;" element1="/com.demo1" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1632032204881"/>&#x0A;<refactoring comment="Delete resource &apos;02-annotationdriven-tx-start&apos;" deleteContents="false" description="Delete resource &apos;02-annotationdriven-tx-start&apos;" element1="/02-annotationdriven-tx-start" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1632047514742"/>
+</session>

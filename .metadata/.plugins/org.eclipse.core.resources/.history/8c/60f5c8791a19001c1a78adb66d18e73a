@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- bean definitions here -->
+
+	<bean id="employee" class="com.demo.bo.Employee">
+		<!-- <constructor-arg name="id"> <value>1</value> </constructor-arg> <constructor-arg 
+			name="name" value="vishal" /> <constructor-arg name="city" value="mumbai" 
+			/> <constructor-arg name="salary" value="1000.00" /> -->
+
+		<property name="id" value="1" />
+		<property name="name" value="vishal" />
+		<property name="city" value="mumbai" />
+
+
+	</bean>
+
+	<bean id="empDao" class="com.demo.dao.EmployeeDAO"></bean>
+
+	<bean id="empService" class="com.demo.services.EmployeeService">
+		<property name="id" value="1" />
+	</bean>
+
+</beans>
