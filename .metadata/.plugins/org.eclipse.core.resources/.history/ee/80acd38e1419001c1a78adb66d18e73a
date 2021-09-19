@@ -1,8 +1,0 @@
-package com.demo.dao;
-
-public class EmployeeDAO {
-
-	public EmployeeDAO() {
-		
-	}	
-}
