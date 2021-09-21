@@ -14,6 +14,7 @@ import com.way2learnonline.repository.*;
 
 @Component("bankService")
 public class BankServiceImpl implements BankService {
+	
 	@Autowired
 	private AccountRepository accountRepository;
 	@Autowired

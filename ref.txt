@@ -229,6 +229,261 @@ Container:
                                                                     username 
                                                                     password
 
-        Spring ORM 
 
-        Spring DATA
+
+        Java - object model 
+            - object is an instance of a class 
+            - object model uses the concept of abstraction, encapsulation, inheritance, polymorphism
+            - in java, the data is represented in the form of objects 
+
+        rdbms databases - relational model 
+            - in rdbms, the data is stored in the form of tables 
+            - diff tables can be associated with each other by referencial integrity 
+
+
+
+
+        ORM - Object relational mapping 
+
+            - hibernate 
+            - iBatis 
+            - TopLink 
+            - ...
+
+            - ORM tools helps to map the java object with a relational table 
+            - ORM tools simplify the persistence operations 
+            - ORM is a technique of mapping the representation of java objects to relational database 
+            - the mapping configuration can be done using xml or annotations 
+
+
+        JPA - Java Persistence API 
+            - it is just a standard / specification which every ORM tool has to implement 
+
+        JPA Providers
+            - ORM tools who implements the JPA standards 
+                - Hibernate JPA
+                - MyBatis
+                - EclipseLink 
+                - ...
+
+        Create a JPA Project 
+        ----------------------
+
+        Persistence unit     
+            -> PU is named configuration, to persist the entities in the db 
+
+            <persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+                <persistence-unit name="JPADemo1">
+                    <provider></provider>
+
+                </persistence-unit>
+        </persistence>
+
+
+        Entity 
+            - object which is managed by JPA provider is called Entity 
+            - every entity class must have....
+                    - must be annotated with @Entity annotation 
+                    - must have an identifier field marked with @Id annotation 
+                    - no arg constructor 
+                    - getter/setter methdos 
+
+            @Entity
+            public class Employee {
+
+            }
+
+        EntityManager 
+            - EntityManager is responsible to persist entities 
+
+
+
+        Standard persistence properties 
+        ------------------------------------
+
+            <properties>
+                <property name="javax.persistence.jdbc.driver" value="DB_DRIVER_CLASS_NAME" />
+                <property name="javax.persistence.jdbc.url" value="DB_URL" />
+                <property name="javax.persistence.jdbc.user" value="DB_USERNAME" />
+                <property name="javax.persistence.jdbc.password" value="DB_PASSWORD" />
+
+		    </properties>
+
+
+
+
+        - Spring Data JPA 
+        --------------------
+            - helps seamless integration of spring application with JPA 
+            - simplifies the configuration
+            - offers "Repository Pattern" which abstracts (hides) complex code to access the DB 
+            - provides boilerplate code to perform DB operations 
+            - generates query automatically using "Query generation methods" 
+            - it supports "QueryDSL" - to perform dynamic query operations 
+
+
+
+                CrudRepository interface 
+                    |
+                    |--> E save(Entity e)
+                    |--> E findById(ID id)
+                    |--> E deleteById(Id D)
+                    |--> E delete(Entity e)
+                    |--> void deleteAll()
+                    |--> Iterable<E> findAll()
+                    |--> 
+
+        - Default Mapping 
+            - name of table is similar to class name 
+            - name of the table column is similar to the class attributes/fields 
+            - by default the primitive types are mapped with their corresponding sql types in db 
+
+                    String                  VARCHAR(255)
+                    int                     INTEGER
+                    double                  .... 
+                    ....                    ...
+
+        - Custom Mapping 
+            @Table 
+            @Column 
+            @GeneratedValue 
+            ...
+            ...
+            ...
+
+        - Inheritance 
+
+
+                Product 
+                    - id 
+                    - name 
+                    - description 
+                    - price 
+
+                ToyProducts             ElectronicProduct
+                    - age                   - type 
+                                            - width 
+                                            - height 
+
+
+                - Inheritance Strategies 
+                        SINGLE_TABLE
+                        JOINED_TABLE 
+                        TABLE_PER_CLASS 
+
+
+        - Relationships / Associations 
+
+       
+
+            class Department {                                  class Employee {
+                private int deptId;                                 private int empId;
+                private String deptName;                            private String name;
+                                                                    private String city;
+
+                @OneToMany                                          @ManyToOne
+                List<Employee> employees;                           private Department dept;                         //..
+
+                //..constructor                                     //..constructor 
+                //..getter / setter                                 //..getter / setter
+
+            }                                                   }
+
+
+            department                                          employee 
+            --------------------                                ----------------
+            deptId          deptName                               empId    name        city    deptId
+            1               xxxx                                    101     e1                      1
+                                                                    102     e2                      1
+                                                                    103     e3                      1
+
+            department_employee
+            --------------------
+            deptId      empID
+            1           101
+            1           102
+            1           103
+
+
+            @ManyToOne                          - join column 
+            @OneToOne                           - join column
+
+
+            @OneToMany                           - join table 
+            @ManyToMany                          - join table 
+
+
+
+
+
+        1. identify and configure the relationships / associations using appropriate annotations 
+            - identify Direction and cardinality 
+
+        2. understand how the associations are represented in db 
+        
+        3. define appropriate cascade event & fetch policy when entities are associated to each other 
+
+        4. perform db operations 
+
+        Cascade events 
+            - PERSIST 
+            - REMOVE 
+            - MERGE
+            - DETACH 
+            - ALL 
+
+
+        Fetch Policies
+            - EAGER 
+            - LAZY
+
+
+        Department -----> Employees ----> Projects ----> Tasks ----> TaskTransactions
+
+
+
+
+    **Stereotype annotations 
+
+        @Component 
+        @Service 
+        @Repository 
+        @Controller 
+
+
+
+
+
+    @OneToMany
+    --------------
+
+
+        @OneToMany                             @ManyToOne
+
+        Client  1<-------------------------->* PhoneNumber
+
+
+    @Entity                                          @Entity
+    class Customer {                                   class PhoneNumber {
+        private int customerId;                             private int id;
+        private String name;                                private String number;
+                                                            private String type;
+        //...                                               //..
+
+        @OneToMany                                          @ManyToOne
+        private List<PhoneNumber> phoneNumbers;             private Customer customer;
+    }                                           }
+
+
+
+    customer_table                                  phonenumber_table
+    ------------------------                        ---------------------------------------
+    customerId      name                            id          number      type        customerId
+
+
+    customer_phonenumber_table 
+    --------------------------------
+    customerId      id 
+
+
+    Customer <------> PhoneNumber
